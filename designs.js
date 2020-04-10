@@ -1,3 +1,5 @@
+var colorPicker = document.getElementById("colorPicker");  //Select color
+var color = colorPicker.value; 
 
 sizePicker.addEventListener('submit', function(event) {
     event.preventDefault();
@@ -17,12 +19,19 @@ function makeGrid(height, width) {     // make grid
         grid += '</tr>';
     }
     table.innerHTML = grid;
+    addColorToCells();
+};
 
-}
 
-pixelCanvas.addEventListener('click', function(){      //add color to cells
-    var color = document.getElementById('colorPicker').value;  //select color
-    var clickedCell = event.target;
+function addColorToCells() {    //add color to cells
+    colorPicker.addEventListener("input", function() {
+    color = colorPicker.value;
+    });
     var cells = document.getElementsByClassName('cell');
-    clickedCell.style.backgroundColor =  color 
-});
+    for (var i = 0; i < cells.length; i++) {
+        cells[i].addEventListener("click",  function(event) {
+        var clickedCell = event.target;
+        clickedCell.style.backgroundColor = color;
+      });
+    }
+  }
